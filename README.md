@@ -25,15 +25,58 @@ Compile your site's static assets:
 
     wordless compile
 
+Clean your compiled static assets:
+
+    wordless clean
+
+Deploy your wordless installation using the `deploy_command` specified in your Wordfile:
+
+    wordless deploy
+
+You can also use the refresh option `-r` to compile your assets before deploying and clean your assets after:
+
+    wordless deploy -r
+
 Get some help:
 
     wordless help
+
+## Configuration
+
+You can create a Wordfile to customize the behaviour of wordless:
+
+```yaml
+wordless_repo: 'git://github.com/welaika/wordless.git'
+static_css:
+  - 'wp-content/themes/mytheme/assets/stylesheets/screen.css'
+  - 'wp-content/themes/mytheme/assets/stylesheets/print.css'
+static_js:
+  - 'wp-content/themes/mytheme/assets/javascripts/application.js'
+  - 'wp-content/themes/mytheme/assets/javascripts/mobile.js'
+deploy_command: 'wordmove push -du'
+```
 
 ## Caveats
 
 - If you attempt to download a WordPress localization that's outdated, the latest English version will be downloaded instead.
 - Only tested on Mac OS X
-- Specs that test installation of the plugin actually download the plugin from GitHub. This makes the specs a bit slow to run.
+
+## Tests
+Clone the wordless repo inside spec/fixtures/wordless:
+
+    git clone https://github.com/welaika/wordless.git spec/fixtures/wordless && cd spec/fixtures/wordless
+
+Set the compass and ruby paths inside
+
+    vim wordless/theme_builder/vanilla_theme/config/initializers/wordless_preferences.php
+
+Commit your changes
+
+    git commit -am "fixed wordless paths"
+
+Go back to the wordless_gem directory and have fun with:
+
+    cd - && rspec spec
 
 ## Contributing
 
